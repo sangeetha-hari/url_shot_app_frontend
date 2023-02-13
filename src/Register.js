@@ -19,6 +19,8 @@ const formvali = Yup.object({
 });
 
 export default function Register() {
+  const navigate = useNavigate();
+  const [done,setDone]= useState();
   // const [email, setEmail]=useState("");
   // const [fname,setFname]=useState("");
   // const [lname,setLname]=useState("");
@@ -32,7 +34,7 @@ export default function Register() {
       confirmpassword: "",
     },
     validationSchema: formvali,
-    onSubmit: (values) => {
+    onSubmit:async (values) => {
       console.log(values.fname);
       const userdetail = {
         username: values.fname,
@@ -42,14 +44,20 @@ export default function Register() {
       console.log(userdetail);
 
       try {
-        axios.post(`${API}/users/register`, userdetail, {
+        const res= await axios.post(`${API}/users/register`, userdetail, {
           headers: {
             // 'authorization': your_token,
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        });
-      } catch (error) {}
+        }).then((response)=>{
+          console.log("registration section");
+          navigate("/checkmail")
+        })
+      } catch (error) {
+        setDone("Something went wrong. Please try again!!!")
+
+      }
     },
   });
 //   function sendemail() {
@@ -66,7 +74,7 @@ export default function Register() {
 //       .then((res) => console.log(res));
 //   }
 
-  const navigate = useNavigate();
+  
 
   return (
     <div>

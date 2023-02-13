@@ -1,25 +1,26 @@
 import "./App.css";
 import Resetpass from "./Resetpass";
-import { Router, Route, Link, Routes } from "react-router-dom";
+import { Route, Link, Routes } from "react-router-dom";
 import Home from "./Home";
-import ResetAuth from "./Forgot_password";
-import { date } from "yup/lib/locale";
-import { useEffect, useState } from "react";
+// import ResetAuth from "./Forgot_password";
+// import { date } from "yup/lib/locale";
+// import { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Container from '@mui/material/Container';
-import IconButton from "@mui/material/IconButton";
+// import Container from '@mui/material/Container';
+// import IconButton from "@mui/material/IconButton";
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
 import Register from "./Register";
 import Login from "./Login";
 import Checkmail from "./Checkmail";
 import Forgot_password from "./Forgot_password";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 import Dashboard from "./Dashboard";
+import Shorturl from "./Shorturl";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/checkmail" element={<Checkmail />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/shorturl" element={<Shorturl/>}  />
       </Routes>
     </div>
   );

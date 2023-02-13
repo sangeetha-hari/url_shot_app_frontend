@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from 'yup';
 import axios from "axios";
 import { API } from "./global";
+import { render } from "@testing-library/react";
 
 
 const formvali=Yup.object({
@@ -17,10 +18,11 @@ const formvali=Yup.object({
 
 export default function Login() {
   const [done,setDone]=useState("");
+  const navi= useNavigate();
     const {values,errors,handleBlur,handleChange,handleSubmit}= useFormik({
         initialValues:{email:"", password:""},
         validationSchema:formvali,
-        onSubmit:(values)=>{
+        onSubmit:async(values)=>{
             console.log(values.email);
             const userdetail={
                 "email":values.email,
@@ -29,24 +31,29 @@ export default function Login() {
             console.log(userdetail);
 
             try {
-                axios.post(`${API}/users/login`,userdetail, {
+                const res= await axios.post(`${API}/users/login`,userdetail, {
                     headers: {
                         // 'authorization': your_token,
                         'Accept' : 'application/json',
                         'Content-Type': 'application/json'
                     }
-                }).then(response => {
-
+                })
+                .then(response => {    
+                    // console.log(response);
                    //setting state (Redux's Style)
                   sessionStorage.setItem('jwttoken', response.data.jwttoken); //saving token
                   console.log(response.data.jwttoken)//pushes back the user after storing token
                   setDone(response.data.message);
-              })
-            } catch (error) {
-              setDone(error);
-              
+                  navi("/shorturl");
 
-                
+                  
+              })
+            } 
+            catch (error) {
+              console.log("this is error section of login page")
+              console.log(error.response.data.message)
+              setDone(error.response.data.message);
+              
             }
 
 
